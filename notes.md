@@ -10,3 +10,8 @@ https://css-tricks.com/responsive-data-tables/
 ### Reference
 - https://www.worldometers.info/coronavirus/#countries
 - Error: 'You have reached maximum request limit' sometimes occurs 
+
+### Improvements
+- add flag emoji to each country
+- add an info icon button to go to chart
+- increase header size
