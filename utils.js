@@ -40,6 +40,24 @@ const utils = {
     const { Confirmed, Deaths, Recovered, Active } = latest;
     return { Confirmed, Deaths, Recovered, Active };
   },
+  getCountryData(found) {
+    const { 
+      NewConfirmed, 
+      TotalConfirmed, 
+      NewDeaths, 
+      TotalDeaths, 
+      NewRecovered, 
+      TotalRecovered 
+    } = found;
+    return { 
+      NewConfirmed,
+      TotalConfirmed,
+      NewDeaths, 
+      TotalDeaths, 
+      NewRecovered, 
+      TotalRecovered 
+    };
+  },
   alphaSort: function(array, prop, direction) {
     return array.sort((a, b) => {
       const textA = a[prop].toUpperCase();

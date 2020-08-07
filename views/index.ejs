@@ -32,6 +32,7 @@ function getLink(currentOrder, currentLabel) {
     <th><%- getLink("Country", "Country"); %></th>
     <th><%- getLink("NewConfirmed", "New Confirmed"); %></th>
     <th><%- getLink("TotalConfirmed", "Total Confirmed"); %></th>
+    <th><%- getLink("NewDeaths", "New Deaths"); %></th>
     <th><%- getLink("TotalDeaths", "Total Deaths"); %></th>
     <th><%- getLink("NewRecovered", "New Recovered"); %></th>
     <th><%- getLink("TotalRecovered", "Total Recovered"); %></th>
@@ -43,15 +44,17 @@ function getLink(currentOrder, currentLabel) {
     Country, 
     NewConfirmed, 
     TotalConfirmed,
+    NewDeaths,
     TotalDeaths,
     NewRecovered,
     TotalRecovered
   } = item; 
   if (Country) { %>
   <tr>
-    <td><a href='/chart?country=<%= Country %>'><%= Country %></a></td>
+    <td><a id='<%= Country %>' href='/chart?country=<%= Country %>'><%= Country %></a></td>
     <td><%= NewConfirmed %></td>
     <td><%= TotalConfirmed %></td>
+    <td><%= NewDeaths %></td>
     <td><%= TotalDeaths %></td>
     <td><%= NewRecovered %></td>
     <td><%= TotalRecovered %></td>
