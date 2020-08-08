@@ -15,4 +15,3 @@ https://css-tricks.com/responsive-data-tables/
 - add flag emoji to each country
 - add an info icon button to go to chart
 - increase header size
-- look into inconsistencies between chart figures and table figures
