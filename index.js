@@ -28,7 +28,12 @@ app.get('/', async (req, res) => {
     const response = await fetch(url, requestOptions);
     const { Countries } = await response.json();
     Countries.shift();
-    const result = sorter(Countries, order, state);
+    let result = sorter(Countries, order, state).map(item => {
+      return Object.keys(item).reduce((acc, key) => {
+        acc[key] = item[key];
+        return acc;
+      }, {});
+    });
     res.render('index.ejs', { result, order, state, getDate, getLink, emojiFlags });
   } catch (err) {
     console.error("Error:", err);
@@ -38,6 +43,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/chart', (req, res) => {
+  console.log('req.query:', req.query);
   let { 
     country,  
     NewConfirmed, 

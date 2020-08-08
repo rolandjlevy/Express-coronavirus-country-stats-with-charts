@@ -5,7 +5,7 @@
 </head>
 <body>
   <main class="container">
-  <h3>CORONAVIRUS COVID19 API: <%= getDate(); %></h3>
+  <h3>COVID19 API: <%= getDate(); %></h3>
     <table border="0">
       <thead>
         <th><%- getLink(state, order, "Country", "Country"); %></th>
@@ -18,7 +18,7 @@
       </thead>
       <tbody>
 
-      <% result.forEach(item => { 
+      <% result.forEach(item => {
         const {
           Country,
           CountryCode,
@@ -32,12 +32,12 @@
         if (Country) { %>
         <tr>
           <td><span class="flag"><%= emojiFlags.countryCode(CountryCode).emoji %></span><span class="link"><a id='<%= Country %>' href='/chart?country=<%= Country %>&CountryCode=<%= CountryCode %>&NewConfirmed=<%= NewConfirmed %>&TotalConfirmed=<%= TotalConfirmed %>&NewDeaths=<%= NewDeaths %>&TotalDeaths=<%= TotalDeaths %>&NewRecovered=<%= NewRecovered %>&TotalRecovered=<%= TotalRecovered %>'><%= Country %></a></link></td>
-          <td><%= NewConfirmed %></td>
-          <td><%= TotalConfirmed %></td>
-          <td><%= NewDeaths %></td>
-          <td><%= TotalDeaths %></td>
-          <td><%= NewRecovered %></td>
-          <td><%= TotalRecovered %></td>
+          <td><%= Number(NewConfirmed).toLocaleString('en') %></td>
+          <td><%= Number(TotalConfirmed).toLocaleString('en') %></td>
+          <td><%= Number(NewDeaths).toLocaleString('en') %></td>
+          <td><%= Number(TotalDeaths).toLocaleString('en') %></td>
+          <td><%= Number(NewRecovered).toLocaleString('en') %></td>
+          <td><%= Number(TotalRecovered).toLocaleString('en') %></td>
         </tr>
       <% }}); %>
 
