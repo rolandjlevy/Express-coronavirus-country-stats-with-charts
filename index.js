@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const env = require('dotenv');
 const moment = require('moment');
-const { sorter, getCountryData, getTotals, getLatestTotals } = require('./utils');
+const { sorter, getCountryData, getDate, getLink } = require('./utils');
 const fetch = require('node-fetch')
 const port = process.env.PORT || 5000;
 
@@ -19,12 +19,16 @@ app.get('/', async (req, res) => {
   order = order || 'Country';
   state = state || 'true';
   try {
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
     const url = `${process.env.CVAPI}/summary`;
-    const response = await fetch(url);
+    const response = await fetch(url, requestOptions);
     const { Countries } = await response.json();
     Countries.shift();
     const result = sorter(Countries, order, state);
-    res.render('index.ejs', { result, order, state });
+    res.render('index.ejs', { result, order, state, getDate, getLink });
   } catch (err) {
     console.error("Error:", err);
     console.error("Response:", response);
@@ -33,26 +37,24 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/chart', async (req, res) => {
-  let { country } = req.query;
-  const requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-  // const url = `${process.env.CVAPI}/live/country/${country}/status/confirmed`;
-  const url = `${process.env.CVAPI}/summary`;
-  const request = await fetch(url, requestOptions)
-  const result = await request.json();
-  const found = result.Countries.find(item => item.Country == country)
-  const totals = getCountryData(found);
-  console.log({totals});
-  res.render('chart.ejs', { country, totals });
-  // const totals = getLatestTotals(result);
-  // res.render('chart.ejs', { country, totals });
-
-  // const totals = getTotals(result);
-  // there is a mismatch between /summary and /status/confirmed dates
-  // also, I'm not getting the totals for the whole country...
-  
+  let { 
+    country,  
+    NewConfirmed, 
+    TotalConfirmed, 
+    NewDeaths, 
+    TotalDeaths, 
+    NewRecovered, 
+    TotalRecovered
+  } = req.query;
+  res.render('chart.ejs', { 
+    country, 
+    NewConfirmed, 
+    TotalConfirmed, 
+    NewDeaths, 
+    TotalDeaths, 
+    NewRecovered, 
+    TotalRecovered
+  });
 });
 
 app.listen(port, () => {

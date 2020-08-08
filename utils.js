@@ -1,12 +1,3 @@
-class Country {
-  constructor(c = 0, d = 0, r = 0, a = 0) {
-    this.Confirmed = c;
-    this.Deaths = d;
-    this.Recovered = r;
-    this.Active = a;
-  }
-}
-
 const utils = {
   sorter: function(array, order, state) {
     if (order == 'Country') {
@@ -25,21 +16,6 @@ const utils = {
       return array.sort((a, b) => state === 'true' ? a[order] - b[order] : b[order] - a[order]);
     }
   },
-  getTotals: function(country) {
-    return country.reduce((acc, item) => {
-      const { Confirmed, Deaths, Recovered, Active } = item;
-      acc.Confirmed += Confirmed;
-      acc.Deaths += Deaths;
-      acc.Recovered += Recovered;
-      acc.Active += Active;
-      return acc;
-    }, new Country());
-  },
-  getLatestTotals: function(country) {
-    const latest = country[country.length-1];
-    const { Confirmed, Deaths, Recovered, Active } = latest;
-    return { Confirmed, Deaths, Recovered, Active };
-  },
   getCountryData(found) {
     const { 
       NewConfirmed, 
@@ -57,6 +33,21 @@ const utils = {
       NewRecovered, 
       TotalRecovered 
     };
+  },
+  getDate() {
+    const date = new Date();
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  },
+  getLink(state, order, currentOrder, currentLabel) {
+    let arrow;
+    const dir = state == 'false';
+    if (order == currentOrder) {
+      arrow = dir ? '&#8595;' : '&#8593;';
+    } else {
+      arrow = '';
+    }
+    return `<a href="/?order=${currentOrder}&state=${dir}">${currentLabel}</a> ${arrow}`;
   },
   alphaSort: function(array, prop, direction) {
     return array.sort((a, b) => {

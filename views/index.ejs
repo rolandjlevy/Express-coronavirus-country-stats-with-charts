@@ -1,41 +1,19 @@
-<% 
-
-function getDate() {
-  const date = new Date();
-  const options = { day: '2-digit', month: 'short', year: 'numeric' };
-  const formattedDate = date.toLocaleDateString('en-GB', options);
-  return formattedDate;
-}
-
-function getLink(currentOrder, currentLabel) {
-  let arrow;
-  const dir = state == 'false';
-  if (order == currentOrder) {
-    arrow = dir ? '&#8595;' : '&#8593;';
-  } else {
-    arrow = '';
-  }
-  return `<a href="/?order=${currentOrder}&state=${dir}">${currentLabel}</a> ${arrow}`;
-}
-
-%>
-
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h3><a href="https://www.worldometers.info/coronavirus/#countries">CORONAVIRUS COVID19 API</a>: <%= getDate(); %></h3>
+<h3>CORONAVIRUS COVID19 API: <%= getDate(); %></h3>
 <table border="0">
   <thead>
-    <th><%- getLink("Country", "Country"); %></th>
-    <th><%- getLink("NewConfirmed", "New Confirmed"); %></th>
-    <th><%- getLink("TotalConfirmed", "Total Confirmed"); %></th>
-    <th><%- getLink("NewDeaths", "New Deaths"); %></th>
-    <th><%- getLink("TotalDeaths", "Total Deaths"); %></th>
-    <th><%- getLink("NewRecovered", "New Recovered"); %></th>
-    <th><%- getLink("TotalRecovered", "Total Recovered"); %></th>
+    <th><%- getLink(state, order, "Country", "Country"); %></th>
+    <th><%- getLink(state, order, "NewConfirmed", "New Confirmed"); %></th>
+    <th><%- getLink(state, order, "TotalConfirmed", "Total Confirmed"); %></th>
+    <th><%- getLink(state, order, "NewDeaths", "New Deaths"); %></th>
+    <th><%- getLink(state, order, "TotalDeaths", "Total Deaths"); %></th>
+    <th><%- getLink(state, order, "NewRecovered", "New Recovered"); %></th>
+    <th><%- getLink(state, order, "TotalRecovered", "Total Recovered"); %></th>
   </thead>
   <tbody>
 
@@ -51,7 +29,7 @@ function getLink(currentOrder, currentLabel) {
   } = item; 
   if (Country) { %>
   <tr>
-    <td><a id='<%= Country %>' href='/chart?country=<%= Country %>'><%= Country %></a></td>
+    <td><a id='<%= Country %>' href='/chart?country=<%= Country %>&NewConfirmed=<%= NewConfirmed %>&TotalConfirmed=<%= TotalConfirmed %>&NewDeaths=<%= NewDeaths %>&TotalDeaths=<%= TotalDeaths %>&NewRecovered=<%= NewRecovered %>&TotalRecovered=<%= TotalRecovered %>'><%= Country %></a></td>
     <td><%= NewConfirmed %></td>
     <td><%= TotalConfirmed %></td>
     <td><%= NewDeaths %></td>
