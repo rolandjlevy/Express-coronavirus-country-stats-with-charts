@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const env = require('dotenv');
 const moment = require('moment');
-const { sorter, getCountryData, getDate, getLink } = require('./utils');
-const fetch = require('node-fetch')
+const emojiFlags = require('emoji-flags');
+const fetch = require('node-fetch');
+const { sorter, getDate, getLink } = require('./utils');
 const port = process.env.PORT || 5000;
 
 app.set('view engine', 'ejs');
@@ -28,7 +29,7 @@ app.get('/', async (req, res) => {
     const { Countries } = await response.json();
     Countries.shift();
     const result = sorter(Countries, order, state);
-    res.render('index.ejs', { result, order, state, getDate, getLink });
+    res.render('index.ejs', { result, order, state, getDate, getLink, emojiFlags });
   } catch (err) {
     console.error("Error:", err);
     console.error("Response:", response);
@@ -36,7 +37,7 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/chart', async (req, res) => {
+app.get('/chart', (req, res) => {
   let { 
     country,  
     NewConfirmed, 
@@ -44,7 +45,8 @@ app.get('/chart', async (req, res) => {
     NewDeaths, 
     TotalDeaths, 
     NewRecovered, 
-    TotalRecovered
+    TotalRecovered,
+    CountryCode
   } = req.query;
   res.render('chart.ejs', { 
     country, 
@@ -53,7 +55,9 @@ app.get('/chart', async (req, res) => {
     NewDeaths, 
     TotalDeaths, 
     NewRecovered, 
-    TotalRecovered
+    TotalRecovered,
+    CountryCode,
+    emojiFlags
   });
 });
 

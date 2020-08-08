@@ -4,42 +4,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h3>CORONAVIRUS COVID19 API: <%= getDate(); %></h3>
-<table border="0">
-  <thead>
-    <th><%- getLink(state, order, "Country", "Country"); %></th>
-    <th><%- getLink(state, order, "NewConfirmed", "New Confirmed"); %></th>
-    <th><%- getLink(state, order, "TotalConfirmed", "Total Confirmed"); %></th>
-    <th><%- getLink(state, order, "NewDeaths", "New Deaths"); %></th>
-    <th><%- getLink(state, order, "TotalDeaths", "Total Deaths"); %></th>
-    <th><%- getLink(state, order, "NewRecovered", "New Recovered"); %></th>
-    <th><%- getLink(state, order, "TotalRecovered", "Total Recovered"); %></th>
-  </thead>
-  <tbody>
+  <main class="container">
+  <h3>CORONAVIRUS COVID19 API: <%= getDate(); %></h3>
+    <table border="0">
+      <thead>
+        <th><%- getLink(state, order, "Country", "Country"); %></th>
+        <th><%- getLink(state, order, "NewConfirmed", "New Confirmed"); %></th>
+        <th><%- getLink(state, order, "TotalConfirmed", "Total Confirmed"); %></th>
+        <th><%- getLink(state, order, "NewDeaths", "New Deaths"); %></th>
+        <th><%- getLink(state, order, "TotalDeaths", "Total Deaths"); %></th>
+        <th><%- getLink(state, order, "NewRecovered", "New Recovered"); %></th>
+        <th><%- getLink(state, order, "TotalRecovered", "Total Recovered"); %></th>
+      </thead>
+      <tbody>
 
-<% result.forEach(item => { 
-  const {
-    Country, 
-    NewConfirmed, 
-    TotalConfirmed,
-    NewDeaths,
-    TotalDeaths,
-    NewRecovered,
-    TotalRecovered
-  } = item; 
-  if (Country) { %>
-  <tr>
-    <td><a id='<%= Country %>' href='/chart?country=<%= Country %>&NewConfirmed=<%= NewConfirmed %>&TotalConfirmed=<%= TotalConfirmed %>&NewDeaths=<%= NewDeaths %>&TotalDeaths=<%= TotalDeaths %>&NewRecovered=<%= NewRecovered %>&TotalRecovered=<%= TotalRecovered %>'><%= Country %></a></td>
-    <td><%= NewConfirmed %></td>
-    <td><%= TotalConfirmed %></td>
-    <td><%= NewDeaths %></td>
-    <td><%= TotalDeaths %></td>
-    <td><%= NewRecovered %></td>
-    <td><%= TotalRecovered %></td>
-  </tr>
-<% }}); %>
+      <% result.forEach(item => { 
+        const {
+          Country,
+          CountryCode,
+          NewConfirmed, 
+          TotalConfirmed,
+          NewDeaths,
+          TotalDeaths,
+          NewRecovered,
+          TotalRecovered
+        } = item; 
+        if (Country) { %>
+        <tr>
+          <td><span class="flag"><%= emojiFlags.countryCode(CountryCode).emoji %></span><span class="link"><a id='<%= Country %>' href='/chart?country=<%= Country %>&CountryCode=<%= CountryCode %>&NewConfirmed=<%= NewConfirmed %>&TotalConfirmed=<%= TotalConfirmed %>&NewDeaths=<%= NewDeaths %>&TotalDeaths=<%= TotalDeaths %>&NewRecovered=<%= NewRecovered %>&TotalRecovered=<%= TotalRecovered %>'><%= Country %></a></link></td>
+          <td><%= NewConfirmed %></td>
+          <td><%= TotalConfirmed %></td>
+          <td><%= NewDeaths %></td>
+          <td><%= TotalDeaths %></td>
+          <td><%= NewRecovered %></td>
+          <td><%= TotalRecovered %></td>
+        </tr>
+      <% }}); %>
 
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </main>
 </body>
 </html>
