@@ -1,11 +1,8 @@
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<%- include('../partials/head.ejs'); %>
+<%- include('../partials/nav.ejs'); %>
+
+<body class="m-t-100">
   <main class="container">
-  <h3>COVID19 API: <%= getDate(); %></h3>
     <table border="0">
       <thead>
         <th><%- getLink(state, order, "Country", "Country"); %></th>
@@ -32,17 +29,20 @@
         if (Country) { %>
         <tr>
           <td><span class="flag"><%= emojiFlags.countryCode(CountryCode).emoji %></span><span class="link"><a id='<%= Country %>' href='/chart?country=<%= Country %>&CountryCode=<%= CountryCode %>&NewConfirmed=<%= NewConfirmed %>&TotalConfirmed=<%= TotalConfirmed %>&NewDeaths=<%= NewDeaths %>&TotalDeaths=<%= TotalDeaths %>&NewRecovered=<%= NewRecovered %>&TotalRecovered=<%= TotalRecovered %>'><%= Country %></a></link></td>
-          <td><%= Number(NewConfirmed).toLocaleString('en') %></td>
-          <td><%= Number(TotalConfirmed).toLocaleString('en') %></td>
-          <td><%= Number(NewDeaths).toLocaleString('en') %></td>
-          <td><%= Number(TotalDeaths).toLocaleString('en') %></td>
-          <td><%= Number(NewRecovered).toLocaleString('en') %></td>
-          <td><%= Number(TotalRecovered).toLocaleString('en') %></td>
+          <td><%= NewConfirmed.toLocaleString('en') %></td>
+          <td><%= TotalConfirmed.toLocaleString('en') %></td>
+          <td><%= NewDeaths.toLocaleString('en') %></td>
+          <td><%= TotalDeaths.toLocaleString('en') %></td>
+          <td><%= NewRecovered.toLocaleString('en') %></td>
+          <td><%= TotalRecovered.toLocaleString('en') %></td>
         </tr>
       <% }}); %>
 
       </tbody>
     </table>
   </main>
+
+  <%- include("../partials/footer.ejs") %>
+
 </body>
 </html>

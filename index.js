@@ -12,6 +12,7 @@ app.use(express.static('public'));
 
 app.use(function (req, res, next) {
   // console.log('Time: %d', Date.now());
+  res.locals.uri = req.originalUrl;
   next();
 });
 
@@ -24,17 +25,20 @@ app.get('/', async (req, res) => {
       method: 'GET',
       redirect: 'follow'
     };
+    const uri = res.locals.uri;
     const url = `${process.env.CVAPI}/summary`;
     const response = await fetch(url, requestOptions);
     const { Countries } = await response.json();
     Countries.shift();
+    // console.log({Countries});
+    // res.send('hello');
     let result = sorter(Countries, order, state).map(item => {
       return Object.keys(item).reduce((acc, key) => {
         acc[key] = item[key];
         return acc;
       }, {});
     });
-    res.render('index.ejs', { result, order, state, getDate, getLink, emojiFlags });
+    res.render('pages/index', { result, order, state, getDate, getLink, emojiFlags, uri });
   } catch (err) {
     console.error("Error:", err);
     console.error("Response:", response);
@@ -43,7 +47,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/chart', (req, res) => {
-  console.log('req.query:', req.query);
+  const uri = res.locals.uri;
   let { 
     country,  
     NewConfirmed, 
@@ -54,7 +58,7 @@ app.get('/chart', (req, res) => {
     TotalRecovered,
     CountryCode
   } = req.query;
-  res.render('chart.ejs', { 
+  res.render('pages/chart', { 
     country, 
     NewConfirmed, 
     TotalConfirmed, 
@@ -63,8 +67,13 @@ app.get('/chart', (req, res) => {
     NewRecovered, 
     TotalRecovered,
     CountryCode,
-    emojiFlags
+    emojiFlags,
+    uri
   });
+});
+
+app.get('/about', (req, res) => {
+  res.render('pages/about', { uri: res.locals.uri });
 });
 
 app.listen(port, () => {

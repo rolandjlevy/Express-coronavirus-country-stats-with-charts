@@ -1,0 +1,77 @@
+<%- include('../partials/head.ejs'); %>
+<%- include('../partials/nav.ejs'); %>
+
+<body class="m-t-100">
+
+  <main class="container">
+    <h3><span class="flag"><%= emojiFlags.countryCode(CountryCode).emoji %></span><%= country %> <a href="/#<%= country %>" class="btn back">↵ back</a></h3>
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+  const stats = [
+    '<%= NewConfirmed %>',
+    '<%= TotalConfirmed %>',
+    '<%= NewDeaths %>',
+    '<%= TotalDeaths %>',
+    '<%= NewRecovered %>',
+    '<%= TotalRecovered %>'
+  ];
+
+  const ctx = document.getElementById('myChart').getContext('2d');       
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['New Confirmed', 'Total Confirmed', 'New Deaths', 'Total Deaths', 'New Recovered', 'Total Recovered'],
+      datasets: [{
+        label: 'Numbers for <%= country %>',
+        data: stats,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(162, 75, 255, 0.2)',
+          'rgba(255, 75, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(162, 75, 255, 1)',
+          'rgba(255, 75, 192, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
+            callback: function(value, index, values) {
+              return Number(value).toLocaleString('en-GB');
+            }
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, chart){
+            const datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+            return datasetLabel + ': ' + Number(tooltipItem.yLabel).toLocaleString('en-GB');
+          }
+        }
+      }
+    }
+  });
+
+  </script>
+
+  <%- include("../partials/footer.ejs") %>
+
+</body>
+</html>
