@@ -1,6 +1,6 @@
 # Covid19 API showing data and charts
 
-Click on each country to see data chart and sort with table headers. Fully responsive on mobiles.
+Click on each country to see data chart and sort data with table headers. Fully responsive on mobiles.
 
 ### Notes
 

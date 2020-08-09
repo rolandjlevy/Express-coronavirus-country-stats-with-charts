@@ -23,6 +23,10 @@ body {
   justify-content: center;
 }
 
+.jumbotron {
+  background-color: var(--grey-even) !important;
+}
+
 th, td {
   padding: 6px 4px 6px 8px;
   position: relative;
