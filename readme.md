@@ -1,4 +1,6 @@
-# Coronavirus API showing stats & charts
+# Covid19 API showing data and charts
+
+Click on each country to see data chart and sort with table headers. Fully responsive on mobiles.
 
 ### Notes
 
@@ -9,8 +11,7 @@
 - Charts from [www.chartjs.org](https://www.chartjs.org/)
 - CSS for responsive table from [css-tricks.com](https://css-tricks.com/responsive-data-tables)
 
-
 ### Links
-+ [Source code](https://repl.it/@rjlevy/express-coronavirus-country-stats-with-charts)
-+ [Live demo](https://express-coronavirus-country-stats-with-charts--rjlevy.repl.co)
-+ [Github repo](https://github.com/rolandjlevy/express-coronavirus-country-stats-with-charts)
++ [Live demo](https://express-covid19-data-with-charts.rjlevy.repl.co)
++ [Source code](https://repl.it/@rjlevy/express-covid19-data-with-charts)
++ [Github repo](https://github.com/rolandjlevy/express-covid19-data-with-charts)

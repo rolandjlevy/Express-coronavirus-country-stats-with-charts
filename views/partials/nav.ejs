@@ -5,10 +5,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item<%= uri == '/' ? ' active' : '';  %>">
+      <li class="nav-item<%= uri !== '/about' ? ' active' : '';  %>">
         <a class="nav-link" href="/">Countries</span></a>
       </li>
-      <li class="nav-item<%= uri == '/about' ? ' active' : '';  %>">
+      <li class="nav-item<%= uri === '/about' ? ' active' : '';  %>">
         <a class="nav-link" href="/about">About</a>
       </li>
     </ul>
